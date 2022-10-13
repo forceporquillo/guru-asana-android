@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/get_started_trampoline_fragment">
+
+    <fragment
+        android:id="@+id/auth_chooser_fragment"
+        android:name="dev.forcecodes.guru.ui.auth.AuthChooserFragment"
+        tools:layout="@layout/fragment_auth_chooser">
+        <action
+            android:id="@+id/action_auth_chooser_fragment_to_loginFragment"
+            app:destination="@id/login_fragment" />
+        <action
+            android:id="@+id/action_auth_chooser_fragment_to_guest_login_dialog_fragment"
+            app:destination="@id/guest_login_dialog_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="dev.forcecodes.guru.ui.auth.LoginFragment"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_fragment_to_sign_up_fragment"
+            app:destination="@id/sign_up_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/get_started_trampoline_fragment"
+        android:name="dev.forcecodes.guru.ui.GetStartedFragment"
+        tools:layout="@layout/fragment_get_started">
+        <action
+            android:id="@+id/action_get_started_trampoline_fragment_to_auth_chooser_fragment"
+            app:destination="@id/auth_chooser_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sign_up_fragment"
+        android:name="dev.forcecodes.guru.ui.auth.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+    </fragment>
+
+    <dialog
+        android:id="@+id/guest_login_dialog_fragment"
+        android:name="dev.forcecodes.guru.ui.auth.GuestLoginDialogFragment" />
+
+</navigation>

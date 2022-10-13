@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+  <data>
+    <variable
+        name="routine"
+        type="dev.forcecodes.guru.ui.SelectRoutinesFragment.RoutinesAdapter.Routine"
+        />
+  </data>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:id="@+id/routine_root"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="12 Min"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TextAppearance.Material3.TitleSmall"
+        />
+
+    <ImageView
+        android:id="@+id/drawable"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:src="@drawable/yoga_custom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guide_start_center"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:textSize="24sp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:id="@+id/title"
+        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Customize Routine"
+        android:text="@{routine.title}"
+        app:layout_constraintEnd_toStartOf="@id/guide_end"
+        app:layout_constraintBottom_toTopOf="@id/level"
+        app:layout_constraintStart_toStartOf="@id/guide_start"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        />
+
+    <TextView
+        android:layout_marginBottom="12dp"
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Beginner Level"
+        android:text="@{routine.difficulty}"
+        app:layout_constraintBottom_toTopOf="@id/sets"
+        app:layout_constraintStart_toStartOf="@id/guide_start"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        style="@style/TextAppearance.Material3.BodySmall"
+        />
+
+    <TextView
+        android:id="@+id/sets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="4 Sets"
+        android:text="@{routine.sets}"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guide_start"
+        app:layout_constraintTop_toBottomOf="@id/level"
+        style="@style/TextAppearance.Material3.BodySmall"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_end"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5"
+        />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_start_center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".4"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</layout>
