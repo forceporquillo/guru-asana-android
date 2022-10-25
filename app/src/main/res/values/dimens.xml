@@ -1,4 +1,44 @@
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="small_margin">4dp</dimen>
+
+    <!-- Default vertical guideline padding -->
+    <dimen name="default_guideline_padding">16dp</dimen>
+    <dimen name="default_guideline_padding_v2">20dp</dimen>
+
+    <!-- PregGo default icon height and width -->
+    <dimen name="preggo_icon_width">125dp</dimen>
+    <dimen name="preggo_icon_height">45dp</dimen>
+
+    <dimen name="text_size_h5">28sp</dimen>
+    <dimen name="text_size_h4">24sp</dimen>
+    <dimen name="text_size_h1">22sp</dimen>
+    <dimen name="text_size_h2">20sp</dimen>
+    <dimen name="text_size_h3">18sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_regular">16sp</dimen>
+
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="ten_dp">10dp</dimen>
+
+    <!-- Global dimen padding and margins -->
+    <dimen name="spacing_smallest">2dp</dimen>
+    <dimen name="spacing_smallest_v2">4dp</dimen>
+    <dimen name="spacing_extra_small">3dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">12dp</dimen>
+    <dimen name="spacing_medium_v2">10dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_normal_v2">20dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_extra_large">32dp</dimen>
+    <dimen name="spacing_extra_largest">48dp</dimen>
+
+    <dimen name="button_height_default">56dp</dimen>
+
+
 </resources>

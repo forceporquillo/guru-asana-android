@@ -52,4 +52,10 @@
     <string name="guest_login_dialog_title">Cloud sync is not available</string>
     <string name="guest_login_dialog_positive_message">Yes</string>
     <string name="guest_login_dialog_negative_message">Cancel</string>
+
+    <string name="progress_loading_message">Please wait…</string>
+    <string name="modal_sheet_activate_message">Your account was successfully created!</string>
+    <string name="modal_sheet_header">Congratulations!</string>
+    <string name="modal_sheet_button_message">Back to login</string>
+    <string name="signup_button_message">Agree and continue</string>
 </resources>

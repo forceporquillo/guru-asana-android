@@ -1,3 +1,3 @@
-package dev.forcecodes.preggo.auth
+package dev.forcecodes.guru.data
 
 interface State

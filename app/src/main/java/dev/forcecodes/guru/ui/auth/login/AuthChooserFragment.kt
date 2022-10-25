@@ -1,4 +1,4 @@
-package dev.forcecodes.guru.ui.auth
+package dev.forcecodes.guru.ui.auth.login
 
 import android.os.Bundle
 import android.view.View
@@ -18,7 +18,6 @@ class AuthChooserFragment : NavFragment(R.layout.fragment_auth_chooser) {
         }
 
         binding.emailSignInBtn.setOnClickListener {
-            findNavController().navigate()
             findNavController().navigate(R.id.action_auth_chooser_fragment_to_loginFragment)
         }
     }

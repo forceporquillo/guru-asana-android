@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/auth_chooser_fragment"
-        android:name="dev.forcecodes.guru.ui.auth.AuthChooserFragment"
+        android:name="dev.forcecodes.guru.ui.auth.login.AuthChooserFragment"
         tools:layout="@layout/fragment_auth_chooser">
         <action
             android:id="@+id/action_auth_chooser_fragment_to_loginFragment"
@@ -19,8 +19,8 @@
 
     <fragment
         android:id="@+id/login_fragment"
-        android:name="dev.forcecodes.guru.ui.auth.LoginFragment"
-        tools:layout="@layout/fragment_login" >
+        android:name="dev.forcecodes.guru.ui.auth.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login_fragment_to_sign_up_fragment"
             app:destination="@id/sign_up_fragment" />
@@ -36,12 +36,11 @@
     </fragment>
     <fragment
         android:id="@+id/sign_up_fragment"
-        android:name="dev.forcecodes.guru.ui.auth.SignUpFragment"
-        tools:layout="@layout/fragment_sign_up">
-    </fragment>
+        android:name="dev.forcecodes.guru.ui.auth.signup.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up" />
 
     <dialog
         android:id="@+id/guest_login_dialog_fragment"
-        android:name="dev.forcecodes.guru.ui.auth.GuestLoginDialogFragment" />
+        android:name="dev.forcecodes.guru.ui.auth.login.GuestLoginDialogFragment" />
 
 </navigation>

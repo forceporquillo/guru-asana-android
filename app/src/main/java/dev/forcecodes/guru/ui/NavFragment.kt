@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import dev.forcecodes.guru.R
 import dev.forcecodes.guru.utils.extensions.setupToolbarNavigateUp
 
-abstract class NavFragment(@LayoutRes val layoutId: Int) : Fragment(layoutId) {
+abstract class NavFragment(@LayoutRes open val layoutId: Int) : Fragment(layoutId) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupToolbarNavigateUp(view.findViewById(R.id.toolbar) ?: return)
     }
 }

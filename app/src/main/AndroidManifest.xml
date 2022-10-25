@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.forcecodes.guru">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".GuruApplication"
         android:allowBackup="true"
@@ -39,6 +41,9 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+        <activity android:name=".ui.auth.AuthActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Guru"/>
     </application>
 
 </manifest>

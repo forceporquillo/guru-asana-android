@@ -1,4 +1,4 @@
-package dev.forcecodes.guru.ui.auth
+package dev.forcecodes.guru.ui.auth.login
 
 import android.app.Dialog
 import android.os.Bundle
