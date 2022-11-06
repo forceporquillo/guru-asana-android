@@ -5,15 +5,16 @@ plugins {
   id 'kotlin-kapt'
   id 'kotlin-android'
   id 'dagger.hilt.android.plugin'
+  id("com.google.devtools.ksp").version("1.7.20-1.0.7")
 }
 
 android {
-  compileSdk 32
+  compileSdk 33
 
   defaultConfig {
     applicationId "dev.forcecodes.guru.android"
-    minSdk 21
-    targetSdk 32
+    minSdk 23
+    targetSdk 33
     versionCode 1
     versionName "1.0"
 
@@ -49,7 +50,8 @@ android {
 
 dependencies {
 
-  implementation 'androidx.core:core-ktx:1.7.0'
+  implementation project(path: ':core-pose-processor')
+
   implementation 'androidx.appcompat:appcompat:1.4.2'
   implementation 'com.google.android.material:material:1.8.0-alpha01'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -58,6 +60,10 @@ dependencies {
 
   implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
   implementation "androidx.fragment:fragment-ktx:1.5.3"
+  implementation 'androidx.core:core-ktx:1.7.0'
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+  implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 
   kapt 'androidx.lifecycle:lifecycle-common-java8:2.5.1'
   implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
@@ -82,6 +88,12 @@ dependencies {
   implementation "com.google.dagger:hilt-android:2.44"
   kapt "com.google.dagger:hilt-android-compiler:2.44"
   kapt "com.google.dagger:hilt-compiler:2.44"
+
+  ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+  implementation("com.squareup.moshi:moshi:1.14.0")
+
+  implementation("io.coil-kt:coil:2.2.2")
+  implementation("io.coil-kt:coil-svg:2.2.2")
 }
 
 // Allow references to generated code
