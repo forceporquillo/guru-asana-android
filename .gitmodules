@@ -1,0 +1,3 @@
+[submodule "guru-asana-ml-pose"]
+	path = guru-asana-ml-pose
+	url = https://github.com/forceporquillo/guru-asana-yoga-ai
