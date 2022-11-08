@@ -3,6 +3,7 @@ pluginManagement {
     gradlePluginPortal()
     google()
     mavenCentral()
+    maven { url 'https://jitpack.io' }
   }
 }
 dependencyResolutionManagement {
@@ -15,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Guru"
 include ':app'
 include ':core-pose-processor'
+include ':lib-discrete-scrollview'
