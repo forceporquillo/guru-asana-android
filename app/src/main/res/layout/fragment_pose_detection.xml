@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.poses.PoseDetectionFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@id/toolbar"
+        style="@style/Widget.Material3.Toolbar.Guru.Appearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:titleCentered="true"
+        app:contentInsetStartWithNavigation="0dp"
+        app:title="Entry Flow" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="-32dp"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:clipToPadding="false"
+        app:activeCardLeftOffset="48dp"
+        app:cardWidth="200dp"
+        app:cardsGap="24dp"
+        app:layoutManager="com.ramotion.cardslider.CardSliderLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:listitem="@layout/item_identify_poses_layout" />
+
+    <TextView
+        android:id="@+id/title_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_normal"
+        android:text="Description"
+        android:textSize="@dimen/text_size_h1"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/list_view" />
+
+    <TextView
+        android:id="@+id/description"
+        style="@style/MaterialAlertDialog.Material3.Body.Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/title_description"
+        tools:text="@tools:sample/lorem/random" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Material3.Button.UnelevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Snapshot your pose"
+        app:cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:src="@drawable/ic_everdyday_yoga"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

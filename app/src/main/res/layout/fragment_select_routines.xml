@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SelectRoutinesFragment"
-    >
+    tools:context=".ui.SelectRoutinesFragment">
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:padding="16dp"
-      >
+      android:padding="16dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/routine_list"
@@ -20,8 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_routine_layout"
-        />
+        tools:listitem="@layout/item_routine_layout" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

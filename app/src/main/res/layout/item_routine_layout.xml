@@ -3,7 +3,7 @@
   <data>
     <variable
         name="routine"
-        type="dev.forcecodes.guru.ui.SelectRoutinesFragment.RoutinesAdapter.Routine"
+        type="dev.forcecodes.guruasana.ui.SelectRoutinesFragment.RoutinesAdapter.Routine"
         />
   </data>
 

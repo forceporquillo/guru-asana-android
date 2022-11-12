@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_normal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:text="@string/home_other_yoga"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_regular"
+            android:textStyle="bold" />
+
+        <include
+            android:id="@+id/pose_card_container"
+            layout="@layout/item_pose_layout" />
+
+    </LinearLayout>
+</merge>

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="dev.forcecodes.guru.ui.auth.signup.SignUpViewModel" />
+            type="dev.forcecodes.guruasana.ui.auth.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -167,7 +167,7 @@
 
         </LinearLayout>
 
-        <dev.forcecodes.guru.widget.FadingSnackbar
+        <dev.forcecodes.guruasana.widget.FadingSnackbar
             android:id="@id/snackbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

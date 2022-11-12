@@ -3,7 +3,7 @@
     <style name="Base.Theme.Guru" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/white_2</item>
-        <item name="fontFamily">@font/poppins_font</item>
+        <item name="fontFamily">@font/google_sans_font</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
 
@@ -23,7 +23,9 @@
 
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
         <item name="colorSurface">@color/white</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.Material3.Body.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/MaterialAlertDialog.Material3.Body.Text
+        </item>
     </style>
 
     <style name="ProgressDialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
@@ -36,6 +38,44 @@
     <style name="ThemeOverlay.Guru.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/black</item>
+    </style>
+
+    <style name="Widget.Material3.Toolbar.Guru.Appearance" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">@style/LargeToolbarTitleAppearance</item>
+    </style>
+
+    <style name="LargeToolbarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="android:textSize">@dimen/text_size_h4</item>
+    </style>
+
+    <style name="TextAppearance.MaterialComponents.Chip.Guru" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/google_sans_font</item>
+    </style>
+
+    <style name="Widget.Material3.Chip.Filter.Guru" parent="Widget.Material3.Chip.Filter">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Chip.Guru</item>
+        <item name="checkedIcon">@null</item>
+        <item name="chipBackgroundColor">@color/chip_color_state_list</item>
+        <item name="android:textColor">@color/chip_text_color_state_list</item>
+        <item name="chipCornerRadius">360dp</item>
+        <item name="chipMinHeight">42dp</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="textStartPadding">@dimen/spacing_normal</item>
+        <item name="textEndPadding">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="CornerRoundedBottomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_RoundedBottomCorner</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_RoundedBottomCorner">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">180dp</item>
+        <item name="cornerSizeBottomLeft">180dp</item>
     </style>
 
 </resources>
