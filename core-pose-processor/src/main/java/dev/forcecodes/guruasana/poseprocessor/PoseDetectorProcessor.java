@@ -40,9 +40,13 @@ import dev.forcecodes.guruasana.poseprocessor.classification.PoseClassifierProce
 /** A processor to run pose detector. */
 public class PoseDetectorProcessor
     extends VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification> {
+
   private static final String TAG = "PoseDetectorProcessor";
 
   private final PoseDetector detector;
+  private final PoseClassifierProcessor.PoseLevel level;
+
+  private ConfidencePoseGraphicCallback confidencePoseGraphicCallback;
 
   private final boolean showInFrameLikelihood;
   private final boolean visualizeZ;
@@ -56,9 +60,9 @@ public class PoseDetectorProcessor
   /** Internal class to hold Pose and classification results. */
   protected static class PoseWithClassification {
     private final Pose pose;
-    private final List<String> classificationResult;
+    private final List<PoseClassifierProcessor.PoseResult> classificationResult;
 
-    public PoseWithClassification(Pose pose, List<String> classificationResult) {
+    public PoseWithClassification(Pose pose, List<PoseClassifierProcessor.PoseResult> classificationResult) {
       this.pose = pose;
       this.classificationResult = classificationResult;
     }
@@ -67,28 +71,52 @@ public class PoseDetectorProcessor
       return pose;
     }
 
-    public List<String> getClassificationResult() {
+    public List<PoseClassifierProcessor.PoseResult> getClassificationResult() {
       return classificationResult;
     }
   }
 
   public PoseDetectorProcessor(
+          Context context,
+          PoseDetectorOptionsBase options,
+          PoseClassifierProcessor.PoseLevel level,
+          boolean showInFrameLikelihood,
+          boolean visualizeZ,
+          boolean rescaleZForVisualization,
+          boolean runClassification,
+          boolean isStreamMode
+  ) {
+    this(context, options, level, showInFrameLikelihood, visualizeZ,
+            rescaleZForVisualization, runClassification, isStreamMode,
+            null, null);
+  }
+
+  public PoseDetectorProcessor(
       Context context,
       PoseDetectorOptionsBase options,
+      PoseClassifierProcessor.PoseLevel level,
       boolean showInFrameLikelihood,
       boolean visualizeZ,
       boolean rescaleZForVisualization,
       boolean runClassification,
-      boolean isStreamMode) {
-    super(context);
+      boolean isStreamMode,
+      InferenceInfoGraphicCallback inferenceInfoGraphicCallback,
+      ConfidencePoseGraphicCallback confidencePoseGraphicCallback
+  ) {
+    super(context, inferenceInfoGraphicCallback);
     this.showInFrameLikelihood = showInFrameLikelihood;
+    this.level = level;
     this.visualizeZ = visualizeZ;
     this.rescaleZForVisualization = rescaleZForVisualization;
-    detector = PoseDetection.getClient(options);
+    this.detector = PoseDetection.getClient(options);
     this.runClassification = runClassification;
     this.isStreamMode = isStreamMode;
     this.context = context;
     classificationExecutor = Executors.newSingleThreadExecutor();
+
+    if (context instanceof ConfidencePoseGraphicCallback && confidencePoseGraphicCallback == null) {
+      this.confidencePoseGraphicCallback = (ConfidencePoseGraphicCallback) context;
+    }
   }
 
   @Override
@@ -105,10 +133,10 @@ public class PoseDetectorProcessor
             classificationExecutor,
             task -> {
               Pose pose = task.getResult();
-              List<String> classificationResult = new ArrayList<>();
+              List<PoseClassifierProcessor.PoseResult> classificationResult = new ArrayList<>();
               if (runClassification) {
                 if (poseClassifierProcessor == null) {
-                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode);
+                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode, level);
                 }
                 classificationResult = poseClassifierProcessor.getPoseResult(pose);
               }
@@ -124,10 +152,10 @@ public class PoseDetectorProcessor
             classificationExecutor,
             task -> {
               Pose pose = task.getResult();
-              List<String> classificationResult = new ArrayList<>();
+              List<PoseClassifierProcessor.PoseResult> classificationResult = new ArrayList<>();
               if (runClassification) {
                 if (poseClassifierProcessor == null) {
-                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode);
+                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode, level);
                 }
                 classificationResult = poseClassifierProcessor.getPoseResult(pose);
               }
@@ -139,14 +167,14 @@ public class PoseDetectorProcessor
   protected void onSuccess(
       @NonNull PoseWithClassification poseWithClassification,
       @NonNull GraphicOverlay graphicOverlay) {
+    confidencePoseGraphicCallback.onGetPoseClassification(poseWithClassification.getClassificationResult());
     graphicOverlay.add(
         new PoseGraphic(
             graphicOverlay,
             poseWithClassification.pose,
             showInFrameLikelihood,
             visualizeZ,
-            rescaleZForVisualization,
-            poseWithClassification.classificationResult));
+            rescaleZForVisualization));
   }
 
   @Override

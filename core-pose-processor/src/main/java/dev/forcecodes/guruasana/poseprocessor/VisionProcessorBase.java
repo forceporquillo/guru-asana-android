@@ -62,8 +62,9 @@ import dev.forcecodes.guruasana.poseprocessor.utils.ScopedExecutor;
  */
 public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
 
-    protected static final String MANUAL_TESTING_LOG = "LogTagForTest";
     private static final String TAG = "VisionProcessorBase";
+
+    private final InferenceInfoGraphicCallback callback;
 
     private final ActivityManager activityManager;
     private final Timer fpsTimer = new Timer();
@@ -99,7 +100,13 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
     @GuardedBy("this")
     private FrameMetadata processingMetaData;
 
-    protected VisionProcessorBase(Context context) {
+    protected VisionProcessorBase(Context context, InferenceInfoGraphicCallback callback) {
+        if (callback == null && context instanceof InferenceInfoGraphicCallback) {
+            this.callback = (InferenceInfoGraphicCallback) context;
+        } else {
+            this.callback = callback;
+        }
+
         activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         executor = new ScopedExecutor(TaskExecutors.MAIN_THREAD);
         fpsTimer.scheduleAtFixedRate(
@@ -332,12 +339,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
                             }
                             VisionProcessorBase.this.onSuccess(results, graphicOverlay);
                             if (!PreferenceUtils.shouldHideDetectionInfo(graphicOverlay.getContext())) {
-                                graphicOverlay.add(
-                                        new InferenceInfoGraphic(
-                                                graphicOverlay,
-                                                currentFrameLatencyMs,
-                                                currentDetectorLatencyMs,
-                                                shouldShowFps ? framesPerSecond : null));
+                                callback.intercept(currentFrameLatencyMs, currentDetectorLatencyMs, framesPerSecond);
                             }
                             graphicOverlay.postInvalidate();
                         })

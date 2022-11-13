@@ -3,16 +3,11 @@ package dev.forcecodes.guruasana.poseprocessor.classification
 import android.util.Log
 import com.google.common.base.Splitter
 import com.google.mlkit.vision.common.PointF3D
-import dev.forcecodes.guruasana.poseprocessor.classification.PoseEmbedding
-import dev.forcecodes.guruasana.poseprocessor.classification.PoseSample
-import java.lang.NullPointerException
-import java.lang.NumberFormatException
-import java.util.ArrayList
 
 /**
  * Reads Pose samples from a csv file.
  */
-class PoseSample(val name: String, val className: String, landmarks: List<PointF3D>?) {
+class PoseSample(val name: String, val className: String, landmarks: List<PointF3D>) {
 
     val embedding: List<PointF3D> by lazy {
         PoseEmbedding.getPoseEmbedding(landmarks)

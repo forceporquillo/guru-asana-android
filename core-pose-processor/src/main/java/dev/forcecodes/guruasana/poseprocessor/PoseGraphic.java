@@ -22,6 +22,7 @@ import static java.lang.Math.min;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.google.mlkit.vision.common.PointF3D;
 import com.google.mlkit.vision.pose.Pose;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 import dev.forcecodes.guruasana.poseprocessor.camera.GraphicOverlay;
+import dev.forcecodes.guruasana.poseprocessor.classification.PoseClassifierProcessor;
 
 /** Draw the detected pose in preview. */
 public class PoseGraphic extends GraphicOverlay.Graphic {
@@ -47,7 +49,6 @@ public class PoseGraphic extends GraphicOverlay.Graphic {
   private float zMin = Float.MAX_VALUE;
   private float zMax = Float.MIN_VALUE;
 
-  private final List<String> poseClassification;
   private final Paint classificationTextPaint;
   private final Paint leftPaint;
   private final Paint rightPaint;
@@ -58,15 +59,14 @@ public class PoseGraphic extends GraphicOverlay.Graphic {
       Pose pose,
       boolean showInFrameLikelihood,
       boolean visualizeZ,
-      boolean rescaleZForVisualization,
-      List<String> poseClassification) {
+      boolean rescaleZForVisualization
+  ) {
     super(overlay);
     this.pose = pose;
     this.showInFrameLikelihood = showInFrameLikelihood;
     this.visualizeZ = visualizeZ;
     this.rescaleZForVisualization = rescaleZForVisualization;
 
-    this.poseClassification = poseClassification;
     classificationTextPaint = new Paint();
     classificationTextPaint.setColor(Color.WHITE);
     classificationTextPaint.setTextSize(POSE_CLASSIFICATION_TEXT_SIZE);
@@ -92,17 +92,18 @@ public class PoseGraphic extends GraphicOverlay.Graphic {
     }
 
     // Draw pose classification text.
-    float classificationX = POSE_CLASSIFICATION_TEXT_SIZE * 0.5f;
-    for (int i = 0; i < poseClassification.size(); i++) {
-      float classificationY =
-          (canvas.getHeight()
-              - POSE_CLASSIFICATION_TEXT_SIZE * 1.5f * (poseClassification.size() - i));
-      canvas.drawText(
-          poseClassification.get(i), classificationX, classificationY, classificationTextPaint);
-    }
+//    float classificationX = POSE_CLASSIFICATION_TEXT_SIZE * 0.5f;
+//    for (int i = 0; i < poseClassification.size(); i++) {
+//      float classificationY =
+//          (canvas.getHeight()
+//              - POSE_CLASSIFICATION_TEXT_SIZE * 1.5f * (poseClassification.size() - i));
+//      canvas.drawText(
+//          poseClassification.get(i), classificationX, classificationY, classificationTextPaint);
+//    }
 
     // Draw all the points
     for (PoseLandmark landmark : landmarks) {
+      Log.d("Landmark", "Position: " + landmark.getPosition() + " Likelihood: " + landmark.getInFrameLikelihood() + " Type: " + landmark.getLandmarkType());
       drawPoint(canvas, landmark, whitePaint);
       if (visualizeZ && rescaleZForVisualization) {
         zMin = min(zMin, landmark.getPosition3D().getZ());
