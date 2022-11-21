@@ -3,7 +3,7 @@ package dev.forcecodes.guruasana.ui.auth.signup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.forcecodes.guruasana.utils.extensions.cancelIfActive
 import dev.forcecodes.guruasana.data.auth.UserCredentials
-import dev.forcecodes.guruasana.domain.usecase.SignUpUseCase
+import dev.forcecodes.guruasana.domain.usecase.auth.SignUpUseCase
 import dev.forcecodes.guruasana.logger.Logger
 import dev.forcecodes.guruasana.ui.ReactiveStateViewModel
 import kotlinx.coroutines.Job

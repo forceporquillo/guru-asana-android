@@ -7,8 +7,6 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import dev.forcecodes.guruasana.data.AuthenticatedUserInfoBasic
-import dev.forcecodes.guruasana.data.GuruUserInfoBasic
 import dev.forcecodes.guruasana.data.Result
 import dev.forcecodes.guruasana.di.ApplicationScope
 import dev.forcecodes.guruasana.logger.Logger

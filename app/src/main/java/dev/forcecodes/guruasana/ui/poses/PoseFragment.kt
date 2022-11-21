@@ -1,6 +1,5 @@
 package dev.forcecodes.guruasana.ui.poses
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import dev.forcecodes.guruasana.R
-import dev.forcecodes.guruasana.YogaPosesFactory
 import dev.forcecodes.guruasana.databinding.FragmentPoseBinding
 import dev.forcecodes.guruasana.databinding.ItemPoseLayoutBinding
-import dev.forcecodes.guruasana.logger.Logger
 import dev.forcecodes.guruasana.model.PoseUiModel
 import dev.forcecodes.guruasana.utils.binding.executeAfter
 import dev.forcecodes.guruasana.utils.binding.viewBinding
@@ -33,7 +30,7 @@ class PoseFragment : Fragment(R.layout.fragment_pose) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbarNavigateUp(binding.toolbar)
 
-        val adapter = PoseAdapter(requireContext())
+        val adapter = PoseAdapter()
         binding.listView.adapter = adapter
 
         launchWithViewLifecycle {
@@ -66,26 +63,7 @@ class PoseFragment : Fragment(R.layout.fragment_pose) {
         }
     }
 
-    internal class PoseAdapter(context: Context) :
-        ListAdapter<PoseUiModel, PoseAdapter.PoseViewHolder>(DIFF_CALLBACK) {
-
-        init {
-            val poses = YogaPosesFactory.singleton(context)
-            Logger.d("Size ${poses.size}")
-            poses.map {
-                it.yogaCategories?.map { it.id ?: -1 } ?: emptyList()
-            }.flatten()
-                .distinct()
-                .map {
-//                    it?.replace("Yoga", "")
-//                        ?.replace("Poses", "")
-//                        ?.trim()
-                    it
-                }
-                .forEach {
-                    Logger.d("Categories $it")
-                }
-        }
+    internal class PoseAdapter : ListAdapter<PoseUiModel, PoseAdapter.PoseViewHolder>(DIFF_CALLBACK) {
 
         internal class PoseViewHolder(
             private val binding: ItemPoseLayoutBinding

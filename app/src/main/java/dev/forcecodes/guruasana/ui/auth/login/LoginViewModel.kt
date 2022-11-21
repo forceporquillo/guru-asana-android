@@ -1,7 +1,7 @@
 package dev.forcecodes.guruasana.ui.auth.login
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.forcecodes.guruasana.domain.usecase.LoginUseCase
+import dev.forcecodes.guruasana.domain.usecase.auth.LoginUseCase
 import dev.forcecodes.guruasana.ui.ReactiveStateViewModel
 import dev.forcecodes.guruasana.ui.UiEvent
 import dev.forcecodes.guruasana.ui.UiState

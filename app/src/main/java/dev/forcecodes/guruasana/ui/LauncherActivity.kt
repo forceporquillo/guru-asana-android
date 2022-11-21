@@ -21,6 +21,3 @@ class LauncherActivity : AppCompatActivity() {
         finish()
     }
 }
-
-class LauncherViewModel @Inject constructor(
-) : ViewModel()

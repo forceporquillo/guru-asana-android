@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import dev.forcecodes.guruasana.ui.LightningYogaPosesFactory
 import dev.forcecodes.guruasana.R
-import dev.forcecodes.guruasana.YogaPosesFactory
+import dev.forcecodes.guruasana.databinding.FragmentDashboardBinding
 import dev.forcecodes.guruasana.databinding.OtherPoseLayoutBinding
 import dev.forcecodes.guruasana.databinding.YogaCategoryItemBinding
 import dev.forcecodes.guruasana.databinding.YogaCategoryLayoutBinding
@@ -21,12 +24,25 @@ import dev.forcecodes.guruasana.utils.extensions.onNavigateWhenInvoked
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
-    private lateinit var viewModel: DashboardViewModel
+    private val viewModel by activityViewModels<DashboardViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initOtherPoseView(view)
         initYogaCategoryView(view)
+
+        val binding = FragmentDashboardBinding.bind(view)
+
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.first() == R.id.history) {
+                navigate(R.id.action_dashboard_to_history)
+                binding.dashboardChip.isChecked = true
+            }
+        }
+
+        binding.myRoutineLayout.routineRoot.setOnClickListener {
+            navigate(R.id.action_dashboard_to_my_routines)
+        }
     }
 
     // Entry point for included OtherPoseLayoutBinding
@@ -46,15 +62,16 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     // Entry point for included YogaCategoryLayoutBinding
     private fun initYogaCategoryView(view: View) {
         val categoryBinding = YogaCategoryLayoutBinding.bind(view)
-        categoryBinding.listView.adapter = YogaCategoryAdapter { category ->
-            println(category)
-            navigate("category")
-        }
-        YogaPosesFactory.singleton(requireContext())
+        categoryBinding.listView.adapter = YogaCategoryAdapter(::navigateToPoseDetection)
+        LightningYogaPosesFactory.singleton(requireContext())
+    }
+
+    private fun navigateToPoseDetection(bundle: Bundle) {
+        navigate(R.id.pose_detection_action, bundle)
     }
 
     internal class YogaCategoryAdapter(
-        private val listener: (Category) -> Unit
+        private val listener: (Bundle) -> Unit
     ) : RecyclerView.Adapter<YogaCategoryAdapter.YogaCategoryViewHolder>() {
 
         private val categories = Category.create()
@@ -79,7 +96,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
             init {
                 binding.root.setOnClickListener {
-                    listener.invoke(categories[adapterPosition])
+                    listener.invoke(
+                        bundleOf(
+                            "level" to adapterPosition,
+                            "category" to categories[adapterPosition].title
+                        )
+                    )
                 }
             }
 

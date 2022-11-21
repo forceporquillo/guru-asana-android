@@ -4,8 +4,11 @@ import coil.ImageLoader
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import dagger.hilt.android.HiltAndroidApp
+import dev.forcecodes.guruasana.data.auth.UserCredentials
+import dev.forcecodes.guruasana.data.auth.UserDataSource
 import dev.forcecodes.guruasana.logger.Logger
 import dev.forcecodes.guruasana.poseprocessor.PoseProcessorMultiDexApplication
+import javax.inject.Inject
 
 @HiltAndroidApp
 class GuruApplication : PoseProcessorMultiDexApplication() {
@@ -28,11 +31,5 @@ class GuruApplication : PoseProcessorMultiDexApplication() {
                     .build()
             }
             .build()
-
-        YogaPosesFactory.singleton(this).map {
-            it.englishName
-        }.forEach {
-            println(it)
-        }
     }
 }
