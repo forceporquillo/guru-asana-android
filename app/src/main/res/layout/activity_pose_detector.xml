@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_container"
+    android:background="@android:color/transparent"
+    tools:context=".ui.poses.PoseTrackingActivity">
+
+    <FrameLayout
+        android:id="@+id/nav_host_camera_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        tools:text="10"
+        android:id="@+id/shutter_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textAlignment="center"
+        android:textColor="@color/light_peach"
+        android:textSize="150sp"
+        app:layout_constraintBottom_toTopOf="@id/cropped_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_main"
+        app:navigationIcon="@drawable/ic_close"
+        app:title="Pose Video Feed"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/CameraToolbarTitleAppearance"
+        app:titleTextColor="@color/white" />
+
+    <View
+        android:id="@+id/cropped_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-8dp"
+        android:background="@color/camera_control_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent=".225" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/timer_chip_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:visibility="gone"
+        app:checkedChip="@+id/timer_off"
+        app:layout_constraintBottom_toTopOf="@id/shutter_button_container"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timer_off"
+            style="@style/Widget.Material3.Chip.Filter.Guru.Camera.Timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OFF"
+            android:textColor="@color/white"
+            app:chipStrokeColor="@android:color/transparent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timer_2_sec"
+            style="@style/Widget.Material3.Chip.Filter.Guru.Camera.Timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 sec"
+            android:textColor="@color/white"
+            app:chipStrokeColor="@android:color/transparent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timer_5_sec"
+            style="@style/Widget.Material3.Chip.Filter.Guru.Camera.Timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 sec"
+            android:textColor="@color/white"
+            app:chipStrokeColor="@android:color/transparent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timer_10_sec"
+            style="@style/Widget.Material3.Chip.Filter.Guru.Camera.Timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 sec"
+            android:textColor="@color/white"
+            app:chipStrokeColor="@android:color/transparent" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/camera_view_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        app:checkedChip="@+id/photo"
+        app:chipSpacingHorizontal="@dimen/spacing_normal"
+        app:layout_constraintBottom_toTopOf="@id/shutter_button_container"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/photo"
+            style="@style/Widget.Material3.Chip.Filter.Guru.Camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Photo"
+            android:textColor="@color/white"
+            app:chipStrokeColor="@android:color/transparent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/live"
+            style="@style/Widget.Material3.Chip.Filter.Guru.Camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Live Feed"
+            android:textColor="@color/white"
+            app:chipStrokeColor="@android:color/transparent" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/media_gallery_container"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:cardBackgroundColor="@color/black_2"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="@id/shutter_button_container"
+        app:layout_constraintEnd_toStartOf="@id/shutter_button_container"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="@id/shutter_button_container"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2dp">
+
+        <ImageView
+            android:id="@+id/media_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/avatars" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageButton
+        android:id="@+id/camera_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_flip"
+        android:src="@drawable/ic_flip"
+        app:layout_constraintBottom_toBottomOf="@id/shutter_button_container"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toEndOf="@id/shutter_button_container"
+        app:layout_constraintTop_toTopOf="@id/shutter_button_container" />
+
+    <FrameLayout
+        android:id="@+id/shutter_button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/shutter_button_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/shutter_button"
+            android:layout_width="@dimen/round_button_large"
+            android:layout_height="@dimen/round_button_large"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_shutter"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_shutter" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:indicatorSize="82dp"
+            app:trackCornerRadius="360dp" />
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

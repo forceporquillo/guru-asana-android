@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layoutDirection="ltr">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/photo_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/pose_classification"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <dev.forcecodes.guruasana.poseprocessor.camera.GraphicOverlay
+        android:id="@+id/graphic_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        app:layout_constraintBottom_toTopOf="@id/pose_classification"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="Static Pose Classification"
+        app:titleTextAppearance="@style/CameraToolbarTitleAppearance" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/classify_pose"
+        style="@style/Widget.Material3.Button.UnelevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_extra_largest"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Classify pose"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent=".35" />
+
+    <TextView
+        android:id="@+id/pose_classification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Classification Info."
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/text_size_regular"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/pose_name"
+        app:layout_constraintStart_toStartOf="@id/guideline_start" />
+
+    <TextView
+        android:id="@+id/pose_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:textColor="@color/black_2"
+        app:layout_constraintBottom_toTopOf="@id/frame_metadata"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        tools:text="Upward Salute - 60% Confidence" />
+
+    <TextView
+        android:id="@+id/frame_metadata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_smallest"
+        android:text="Frame Metadata"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/text_size_regular"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/frame_latency_tv"
+        app:layout_constraintStart_toStartOf="@id/guideline_start" />
+
+    <TextView
+        android:id="@+id/frame_latency_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_smallest"
+        android:textColor="@color/black_2"
+        app:layout_constraintBottom_toTopOf="@id/detector_latency_tv"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        tools:text="@string/frame_latency_ms" />
+
+    <TextView
+        android:id="@+id/detector_latency_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        tools:text="@string/detector_latency_ms" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

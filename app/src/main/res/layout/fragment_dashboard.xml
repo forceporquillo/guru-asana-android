@@ -15,13 +15,13 @@
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/spacing_normal"
         android:paddingEnd="@dimen/spacing_normal"
-        app:checkedChip="@id/dashboard"
+        app:checkedChip="@id/dashboard_chip"
         app:layout_constraintTop_toBottomOf="@id/appbar"
         app:selectionRequired="true"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/dashboard"
+            android:id="@+id/dashboard_chip"
             style="@style/Widget.Material3.Chip.Filter.Guru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/my_routine_layout" />
+            <include
+                android:id="@+id/my_routine_layout"
+                layout="@layout/my_routine_layout" />
 
             <include layout="@layout/other_pose_layout" />
 

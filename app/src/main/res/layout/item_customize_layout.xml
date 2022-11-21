@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/spacing_normal"
+    android:paddingTop="@dimen/spacing_small"
+    android:paddingEnd="@dimen/spacing_normal"
+    android:paddingBottom="@dimen/spacing_small">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/pose_card_container"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        app:cardBackgroundColor="@color/light_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/pose_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/small_margin"
+            android:paddingBottom="@dimen/small_margin"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pose_intermediate_cat_pose"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pose_syn" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/pose_class_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:text="Cobra Pose"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/text_size_h3"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/pose_card_container"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sanskrit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:text="Bhujangasana"
+        app:layout_constraintStart_toEndOf="@id/pose_card_container"
+        app:layout_constraintTop_toBottomOf="@id/pose_class_name" />
+
+    <TextView
+        android:ellipsize="end"
+        android:id="@+id/pose_class_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:maxLines="3"
+        app:layout_constraintEnd_toStartOf="@id/checkbox"
+        app:layout_constraintStart_toEndOf="@id/pose_card_container"
+        app:layout_constraintTop_toBottomOf="@+id/sanskrit_name"
+        tools:text="A heart-opening backbend that extends your entire upper body and might be helpful" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        app:cardBackgroundColor="@color/light_blue"
+        app:layout_constraintBottom_toBottomOf="@id/pose_card_container"
+        app:layout_constraintStart_toEndOf="@id/pose_card_container"
+        app:strokeWidth="0dp">
+
+        <TextView
+            android:id="@+id/confidence_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_smallest"
+            android:paddingEnd="@dimen/spacing_small"
+            android:paddingBottom="@dimen/spacing_smallest"
+            android:text="Confidence rate: >80%"
+            android:textColor="@color/white_2"
+            android:textStyle="bold" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
