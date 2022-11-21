@@ -62,6 +62,9 @@ dependencies {
 
     implementation 'com.google.guava:guava:27.1-android'
     implementation 'com.google.guava:guava:27.1-jre'
+
+    api 'androidx.window:window:1.0.0-alpha09'
+
 }
 
 configurations {

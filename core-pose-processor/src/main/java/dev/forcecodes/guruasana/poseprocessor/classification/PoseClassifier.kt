@@ -8,7 +8,7 @@ import java.util.ArrayList
 import java.util.PriorityQueue
 
 /**
- * Classifies {link Pose} based on given [PoseSample]s.
+ * Classifies [Pose] based on given [PoseSample]s.
  *
  *
  * Inspired by K-Nearest Neighbors Algorithm with outlier filtering.
@@ -99,7 +99,7 @@ class PoseClassifier @JvmOverloads constructor(
         ) { o1: Pair<PoseSample, Float?>, o2: Pair<PoseSample, Float?> ->
             -(o1.second!!).compareTo(o2.second!!)
         }
-        // Retrive top K poseSamples by least mean distance to remove outliers.
+        // Retrieve top K poseSamples by least mean distance to remove outliers.
         for (sampleDistances in maxDistances) {
             val poseSample = sampleDistances.first
             val sampleEmbedding = poseSample.embedding

@@ -19,7 +19,7 @@ import java.util.*
 class PoseClassifierProcessor @WorkerThread constructor(
     context: Context,
     isStreamMode: Boolean,
-    level: PoseLevel
+    level: PoseDifficultyLevel
 ) {
     private val isStreamMode: Boolean
     private var emaSmoothing: EMASmoothing? = null
@@ -33,10 +33,11 @@ class PoseClassifierProcessor @WorkerThread constructor(
         val repeatCount: Int? = 0
     )
 
-    enum class PoseLevel(val type: String) {
+    enum class PoseDifficultyLevel(val type: String) {
         BEGINNER("beginner"),
         INTERMEDIATE("intermediate"),
-        ADVANCED("advanced")
+        ADVANCED("advanced"),
+        ALL("all_category")
     }
 
     init {
@@ -50,18 +51,17 @@ class PoseClassifierProcessor @WorkerThread constructor(
         loadPoseSamples(context, level)
     }
 
-    private fun loadPoseSamples(context: Context, poseLevel: PoseLevel) {
+    private fun loadPoseSamples(context: Context, poseDifficultyLevel: PoseDifficultyLevel) {
         val poseSamples: MutableList<PoseSample> = ArrayList()
         try {
-            Log.d(TAG,"Retrieving Trained Samples: ${context.assets.open("poses/${poseLevel.type}.csv")}")
+            Log.d(TAG,"Retrieving Trained Samples: ${context.assets.open("poses/${poseDifficultyLevel.type}.csv")}")
             val reader = BufferedReader(
-                InputStreamReader(context.assets.open("poses/${poseLevel.type}.csv"))
+                InputStreamReader(context.assets.open("poses/${poseDifficultyLevel.type}.csv"))
             )
             var csvLine = reader.readLine()
             while (csvLine != null) {
                 // If line is not a valid {@link PoseSample}, we'll get null and skip adding to the list.
                 val poseSample = getPoseSample(csvLine, ",")
-                Log.d(TAG, "PoseSamples ${poseSample.toString()}")
                 if (poseSample != null) {
                     poseSamples.add(poseSample)
                 }
@@ -71,11 +71,6 @@ class PoseClassifierProcessor @WorkerThread constructor(
             Log.e(TAG, "Error when loading pose samples.\n$e")
         }
         poseClassifier = PoseClassifier(poseSamples)
-        if (isStreamMode) {
-            for (className in POSE_CLASSES) {
-                repCounters!!.add(RepetitionCounter(className))
-            }
-        }
     }
 
     /**
@@ -93,7 +88,6 @@ class PoseClassifierProcessor @WorkerThread constructor(
         val result: MutableList<PoseResult> = ArrayList()
         var classification = poseClassifier!!.classify(pose)
 
-        // Update {@link RepetitionCounter}s if {@code isStreamMode}.
         if (isStreamMode) {
             // Feed pose to smoothing even if no pose found.
             classification = emaSmoothing!!.getSmoothedResult(classification)
@@ -103,32 +97,12 @@ class PoseClassifierProcessor @WorkerThread constructor(
                 result.add(lastRepResult)
                 return result
             }
-//            for (repCounter in repCounters!!) {
-//                val repsBefore = repCounter.numRepeats
-//                val repsAfter = repCounter.addClassificationResult(classification)
-//                if (repsAfter > repsBefore) {
-//                    // Play a fun beep when rep counter updates.
-//                    val tg = ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100)
-//                    tg.startTone(ToneGenerator.TONE_PROP_BEEP)
-////                    lastRepResult = String.format(
-////                        Locale.US, "%s : %d reps", repCounter.className, repsAfter
-////                    )
-//                    lastRepResult = PoseResult(repCounter.className, lastRepResult.confidence, repsAfter)
-//                    break
-//                }
-//            }
             result.add(lastRepResult)
         }
 
         // Add maxConfidence class of current frame to result if pose is found.
-        if (!pose.allPoseLandmarks.isEmpty()) {
+        if (pose.allPoseLandmarks.isNotEmpty()) {
             val maxConfidenceClass = classification.maxConfidenceClass
-            val maxConfidenceClassResult = String.format(
-                Locale.US,
-                "%s : %.2f confidence",
-                maxConfidenceClass, classification.getClassConfidence(maxConfidenceClass)
-                        / poseClassifier!!.confidenceRange()
-            )
             val poseResult = PoseResult(
                 maxConfidenceClass,
                 classification.getClassConfidence(maxConfidenceClass)
@@ -141,14 +115,5 @@ class PoseClassifierProcessor @WorkerThread constructor(
 
     companion object {
         private const val TAG = "PoseClassifierProcessor"
-
-        // Specify classes for which we want rep counting.
-        // These are the labels in the given {@code POSE_SAMPLES_FILE}. You can set your own class labels
-        // for your pose samples.
-        private const val PUSHUPS_CLASS = "pushups_down"
-        private const val SQUATS_CLASS = "squats_down"
-        private val POSE_CLASSES = arrayOf(
-            PUSHUPS_CLASS, SQUATS_CLASS
-        )
     }
 }

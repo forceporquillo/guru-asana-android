@@ -30,6 +30,7 @@ import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseDetectorOptionsBase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -44,13 +45,13 @@ public class PoseDetectorProcessor
   private static final String TAG = "PoseDetectorProcessor";
 
   private final PoseDetector detector;
-  private final PoseClassifierProcessor.PoseLevel level;
+  private final PoseClassifierProcessor.PoseDifficultyLevel difficultyLevel;
 
   private ConfidencePoseGraphicCallback confidencePoseGraphicCallback;
 
   private final boolean showInFrameLikelihood;
-  private final boolean visualizeZ;
-  private final boolean rescaleZForVisualization;
+  private final boolean visualize3D;
+  private final boolean rescale3DVisualization;
   private final boolean runClassification;
   private final boolean isStreamMode;
   private final Context context;
@@ -79,24 +80,57 @@ public class PoseDetectorProcessor
   public PoseDetectorProcessor(
           Context context,
           PoseDetectorOptionsBase options,
-          PoseClassifierProcessor.PoseLevel level,
+          PoseClassifierProcessor.PoseDifficultyLevel difficultyLevel,
+          boolean isStreamMode
+  ) {
+    this(context, options, difficultyLevel,
+            true, true,
+            true,
+            true,
+            isStreamMode
+    );
+  }
+
+  public PoseDetectorProcessor(
+          Context context,
+          PoseDetectorOptionsBase options,
+          PoseClassifierProcessor.PoseDifficultyLevel difficultyLevel,
+          boolean isStreamMode,
+          boolean runClassification,
+          InferenceInfoGraphicCallback inferenceInfoGraphicCallback,
+          ConfidencePoseGraphicCallback confidencePoseGraphicCallback
+  ) {
+    this(context, options, difficultyLevel,
+            true, true,
+            true,
+            runClassification,
+            isStreamMode,
+            inferenceInfoGraphicCallback,
+            confidencePoseGraphicCallback
+    );
+  }
+
+  public PoseDetectorProcessor(
+          Context context,
+          PoseDetectorOptionsBase options,
+          PoseClassifierProcessor.PoseDifficultyLevel difficultyLevel,
           boolean showInFrameLikelihood,
           boolean visualizeZ,
-          boolean rescaleZForVisualization,
+          boolean rescale3DVisualization,
           boolean runClassification,
           boolean isStreamMode
   ) {
-    this(context, options, level, showInFrameLikelihood, visualizeZ,
-            rescaleZForVisualization, runClassification, isStreamMode,
+    this(context, options, difficultyLevel, showInFrameLikelihood, visualizeZ,
+            rescale3DVisualization, runClassification, isStreamMode,
             null, null);
   }
 
   public PoseDetectorProcessor(
       Context context,
       PoseDetectorOptionsBase options,
-      PoseClassifierProcessor.PoseLevel level,
+      PoseClassifierProcessor.PoseDifficultyLevel difficultyLevel,
       boolean showInFrameLikelihood,
-      boolean visualizeZ,
+      boolean visualize3D,
       boolean rescaleZForVisualization,
       boolean runClassification,
       boolean isStreamMode,
@@ -105,18 +139,29 @@ public class PoseDetectorProcessor
   ) {
     super(context, inferenceInfoGraphicCallback);
     this.showInFrameLikelihood = showInFrameLikelihood;
-    this.level = level;
-    this.visualizeZ = visualizeZ;
-    this.rescaleZForVisualization = rescaleZForVisualization;
+    this.difficultyLevel = difficultyLevel;
+    this.visualize3D = visualize3D;
+    this.rescale3DVisualization = rescaleZForVisualization;
     this.detector = PoseDetection.getClient(options);
     this.runClassification = runClassification;
     this.isStreamMode = isStreamMode;
     this.context = context;
+
+    // for process Tasks execution
     classificationExecutor = Executors.newSingleThreadExecutor();
 
     if (context instanceof ConfidencePoseGraphicCallback && confidencePoseGraphicCallback == null) {
       this.confidencePoseGraphicCallback = (ConfidencePoseGraphicCallback) context;
     }
+    if (confidencePoseGraphicCallback != null) {
+      this.confidencePoseGraphicCallback = confidencePoseGraphicCallback;
+    }
+
+    Log.d(TAG, "Encoder           : " + options.encode());
+    Log.d(TAG, "Run Configuration : " + options.getRunConfigName());
+    Log.d(TAG, "Hardware Configs  : " + Arrays.toString(options.getPreferredHardwareConfigs()));
+    Log.d(TAG, "Executor          : " + options.getExecutor());
+
   }
 
   @Override
@@ -136,7 +181,7 @@ public class PoseDetectorProcessor
               List<PoseClassifierProcessor.PoseResult> classificationResult = new ArrayList<>();
               if (runClassification) {
                 if (poseClassifierProcessor == null) {
-                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode, level);
+                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode, difficultyLevel);
                 }
                 classificationResult = poseClassifierProcessor.getPoseResult(pose);
               }
@@ -155,7 +200,7 @@ public class PoseDetectorProcessor
               List<PoseClassifierProcessor.PoseResult> classificationResult = new ArrayList<>();
               if (runClassification) {
                 if (poseClassifierProcessor == null) {
-                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode, level);
+                  poseClassifierProcessor = new PoseClassifierProcessor(context, isStreamMode, difficultyLevel);
                 }
                 classificationResult = poseClassifierProcessor.getPoseResult(pose);
               }
@@ -167,14 +212,16 @@ public class PoseDetectorProcessor
   protected void onSuccess(
       @NonNull PoseWithClassification poseWithClassification,
       @NonNull GraphicOverlay graphicOverlay) {
-    confidencePoseGraphicCallback.onGetPoseClassification(poseWithClassification.getClassificationResult());
-    graphicOverlay.add(
-        new PoseGraphic(
-            graphicOverlay,
-            poseWithClassification.pose,
-            showInFrameLikelihood,
-            visualizeZ,
-            rescaleZForVisualization));
+    confidencePoseGraphicCallback.onGetPoseClassificationChangeListener(poseWithClassification.getClassificationResult());
+    if (runClassification) {
+      graphicOverlay.add(
+              new PoseGraphic(
+                      graphicOverlay,
+                      poseWithClassification.pose,
+                      showInFrameLikelihood,
+                      visualize3D,
+                      rescale3DVisualization));
+    }
   }
 
   @Override

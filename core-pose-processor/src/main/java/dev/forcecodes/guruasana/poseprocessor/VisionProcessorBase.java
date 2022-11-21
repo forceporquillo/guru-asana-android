@@ -64,7 +64,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
 
     private static final String TAG = "VisionProcessorBase";
 
-    private final InferenceInfoGraphicCallback callback;
+    private InferenceInfoGraphicCallback callback;
 
     private final ActivityManager activityManager;
     private final Timer fpsTimer = new Timer();
@@ -103,10 +103,10 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
     protected VisionProcessorBase(Context context, InferenceInfoGraphicCallback callback) {
         if (callback == null && context instanceof InferenceInfoGraphicCallback) {
             this.callback = (InferenceInfoGraphicCallback) context;
-        } else {
+        }
+        if (callback != null) {
             this.callback = callback;
         }
-
         activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         executor = new ScopedExecutor(TaskExecutors.MAIN_THREAD);
         fpsTimer.scheduleAtFixedRate(
@@ -339,7 +339,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
                             }
                             VisionProcessorBase.this.onSuccess(results, graphicOverlay);
                             if (!PreferenceUtils.shouldHideDetectionInfo(graphicOverlay.getContext())) {
-                                callback.intercept(currentFrameLatencyMs, currentDetectorLatencyMs, framesPerSecond);
+                                callback.onInferenceInfoChangedListener(currentFrameLatencyMs, currentDetectorLatencyMs, framesPerSecond);
                             }
                             graphicOverlay.postInvalidate();
                         })
