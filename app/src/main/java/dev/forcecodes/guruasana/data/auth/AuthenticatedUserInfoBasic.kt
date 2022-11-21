@@ -1,4 +1,4 @@
-package dev.forcecodes.guruasana.data
+package dev.forcecodes.guruasana.data.auth
 
 import android.net.Uri
 import com.google.firebase.auth.UserInfo

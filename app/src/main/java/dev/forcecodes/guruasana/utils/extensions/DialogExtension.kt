@@ -1,6 +1,6 @@
 @file:Suppress("deprecation")
 
-package dev.forcecodes.guruasana.utils
+package dev.forcecodes.guruasana.utils.extensions
 
 import android.app.ProgressDialog
 import android.content.Context

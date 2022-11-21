@@ -1,11 +1,11 @@
-package dev.forcecodes.guruasana
+package dev.forcecodes.guruasana.ui
 
 import android.content.Context
 import com.squareup.moshi.Moshi
 import dev.forcecodes.guruasana.model.YogaPoseWrapper
 import dev.forcecodes.guruasana.model.YogaPoses
 
-class YogaPosesFactory private constructor() {
+class LightningYogaPosesFactory private constructor() {
 
     companion object {
         private val yogaItems = mutableListOf<YogaPoses>()

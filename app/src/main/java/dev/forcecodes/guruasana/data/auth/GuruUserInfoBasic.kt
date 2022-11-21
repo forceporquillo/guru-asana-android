@@ -1,9 +1,8 @@
-package dev.forcecodes.guruasana.data
+package dev.forcecodes.guruasana.data.auth
 
 import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserInfo
-import dev.forcecodes.guruasana.data.AuthenticatedUserInfoBasic
 
 class GuruUserInfoBasic(
     private val firebaseUser: FirebaseUser?

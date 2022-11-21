@@ -1,4 +1,4 @@
-package dev.forcecodes.guruasana.domain.usecase
+package dev.forcecodes.guruasana.domain.usecase.auth
 
 import dev.forcecodes.guruasana.domain.UiStateFlowUseCase
 import dev.forcecodes.guruasana.domain.UseCaseParams
