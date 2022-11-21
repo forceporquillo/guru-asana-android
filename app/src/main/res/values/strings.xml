@@ -26,5 +26,12 @@
     <string name="home_dashboard">Dashboard</string>
     <string name="home_history">History</string>
     <string name="home_other_yoga">Other Yoga poses you can try</string>
+    <string name="frame_latency_ms">Frame Latency: %s ms</string>
+    <string name="fps_ms">FPS: %s ms</string>
+    <string name="detector_latency_ms">Detector Latency: %s ms</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recognizing_default_pose">Recognizing your pose. Please wait...</string>
+    <string name="message_no_post_detected">You don\'t have any post detection/classification history yet.</string>
 
 </resources>

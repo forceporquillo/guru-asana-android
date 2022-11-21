@@ -17,6 +17,12 @@
         <item name="android:windowExitTransition">@android:transition/explode</item>
     </style>
 
+    <style name="Theme.Guru.CameraProcessor" parent="Theme.Guru">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
     <style name="Theme.Guru.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Guru.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -49,6 +55,32 @@
         <item name="android:textSize">@dimen/text_size_h4</item>
     </style>
 
+    <style name="ExpandedToolbarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="android:textSize">@dimen/text_size_h5</item>
+    </style>
+
+    <style name="HistoryToolbarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">@dimen/text_size_h3</item>
+    </style>
+
+
+    <style name="CollapsedToolbarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="android:textSize">@dimen/text_size_h4</item>
+    </style>
+
+    <style name="CameraToolbarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="android:textSize">@dimen/text_size_h2</item>
+    </style>
+
+    <style name="Camera2ToolbarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="android:textSize">@dimen/text_size_h3</item>
+    </style>
+
     <style name="TextAppearance.MaterialComponents.Chip.Guru" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
@@ -65,6 +97,20 @@
         <item name="chipStrokeWidth">0dp</item>
         <item name="textStartPadding">@dimen/spacing_normal</item>
         <item name="textEndPadding">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="Widget.Material3.Chip.Filter.Guru.Camera" parent="Widget.Material3.Chip.Filter.Guru">
+        <item name="checkedIcon">@null</item>
+        <item name="chipSurfaceColor">#00FFFFFF</item>
+        <item name="chipBackgroundColor">@color/camera_chip_color_state_list</item>
+        <item name="chipMinHeight">32dp</item>
+    </style>
+
+    <style name="Widget.Material3.Chip.Filter.Guru.Camera.Timer" parent="Widget.Material3.Chip.Filter.Guru.Camera">
+        <item name="textStartPadding">@dimen/spacing_small</item>
+        <item name="textEndPadding">@dimen/spacing_small</item>
+        <item name="chipBackgroundColor">@color/timer_chip_color_state_list</item>
+        <item name="checkedIcon">@drawable/ic_check_circle_outline</item>
     </style>
 
     <style name="CornerRoundedBottomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">

@@ -40,5 +40,8 @@
 
     <dimen name="button_height_default">56dp</dimen>
 
-
+    <dimen name="round_button_small">32dp</dimen>
+    <dimen name="round_button_medium">64dp</dimen>
+    <dimen name="round_button_large">72dp</dimen>
+    <dimen name="shutter_button_margin">42dp</dimen>
 </resources>

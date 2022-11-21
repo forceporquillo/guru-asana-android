@@ -8,4 +8,6 @@
   <color name="light_peach">#FFFFF1E0</color>
   <color name="light_gray">#FFF6F6F6</color>
   <color name="light_leaf">#FFF1FBE5</color>
+  <color name="black_2">#FF000000</color>
+  <color name="camera_control_color">#B2000000</color>
 </resources>

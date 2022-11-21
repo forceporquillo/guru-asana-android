@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="dev.forcecodes.guruasana.android.ui.MainActivity">
   <item
-      android:id="@+id/timer"
+      android:id="@+id/edit"
       app:showAsAction="always"
-      android:icon="@drawable/ic_timer"
-      android:title="Timer"/>
+      android:icon="@drawable/ic_edit"
+      android:title="Edit"/>
 </menu>
