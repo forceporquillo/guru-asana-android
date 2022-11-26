@@ -135,7 +135,7 @@ class GalleryFragment internal constructor() :
                         poseResult.poseName?.replace(
                             LivePoseFeedFragment.REGEX,
                             ""
-                        )?.replace("_", "")
+                        )?.replace("_", " ")
                             ?.capitalizeWords
                             ?.trimStart() ?: "N/A", poseResult.confidence
                     )
